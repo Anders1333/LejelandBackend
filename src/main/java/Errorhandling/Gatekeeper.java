@@ -5,6 +5,7 @@
  */
 package Errorhandling;
 
+import Entities.Item;
 import Entities.User;
 
 /**
@@ -21,5 +22,13 @@ public class Gatekeeper {
               user.getPassword().equals("") ||
               user.getNumberOfRatings()!=0 ||
               user.getSumOfRatings()!=0);
+    }
+    
+    public boolean checkItemData(Item item){
+       return !(item.getTitle().equals("")||
+                item.getItemId()!=0 ||
+                item.getLocation().equals("")||
+                item.getStatus().equals("")||
+                item.getPayment().equals("")); 
     }
 }

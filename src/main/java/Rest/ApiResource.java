@@ -113,8 +113,11 @@ public class ApiResource{
     @Path("/items/addItem")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public String addItemToDatabase(String content){
+    public String addItemToDatabase(String content) throws ValidationErrorException{
         Item item = IF.getItemFromJson(content);
+        if(GK.checkItemData(item)==false){
+            throw new ValidationErrorException("Code: 400  Message: Invalid input ");
+        }
          try{
             em.getTransaction().begin();
             em.persist(item);
