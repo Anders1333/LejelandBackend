@@ -183,15 +183,7 @@ public class ApiResourceTest {
     /**
      * Test of addUserToDatabase method, of class ApiResource.
      */
-    @Test(expected = NullPointerException.class)
-    public void testAddUserToDatabase() throws Exception {
-        System.out.println("addUserToDatabase");
-        String content = "";
-        ApiResource instance = new ApiResource();
-
-        String result = instance.addUserToDatabase(content);
-
-    }
+ 
     @Test
     public void testAddItemToDatabase_and_see() throws Exception {
         Gson gson = new Gson();

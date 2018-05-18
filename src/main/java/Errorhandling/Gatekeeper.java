@@ -26,7 +26,6 @@ public class Gatekeeper {
     
     public boolean checkItemData(Item item){
        return !(item.getTitle().equals("")||
-                item.getItemId()!=0 ||
                 item.getLocation().equals("")||
                 item.getStatus().equals("")||
                 item.getPayment().equals("")); 
