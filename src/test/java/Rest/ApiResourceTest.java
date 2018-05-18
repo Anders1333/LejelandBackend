@@ -128,17 +128,17 @@ public class ApiResourceTest {
     /**
      * Test of getItemsForUser method, of class ApiResource.
      */
-    @Test
-    public void testGetItemsForUser() {
-        System.out.println("getItemsForUser");
-        int id = 4;
-        ItemFacade it = new ItemFacade();
-        List<String> itemsAsStrings = it.getItemsFromUserId(id);
-        List<Item> itemsInList = new ArrayList<Item>();
-        
-        for (int i = 0; i < itemsAsStrings.size(); i++) {
-           itemsInList.add(gson.fromJson(itemsAsStrings.get(i),Item.class));
-          }
+//    @Test
+//    public void testGetItemsForUser() {
+//        System.out.println("getItemsForUser");
+//        int id = 4;
+//        ItemFacade it = new ItemFacade();
+//        List<String> itemsAsStrings = it.getItemsFromUserId(id);
+//        List<Item> itemsInList = new ArrayList<Item>();
+//        
+//        for (int i = 0; i < itemsAsStrings.size(); i++) {
+//           itemsInList.add(gson.fromJson(itemsAsStrings.get(i),Item.class));
+//          }
         
         // FORTSÆT HER YO
        
@@ -148,7 +148,7 @@ public class ApiResourceTest {
         
         
         
-    }
+    
 
     /**
      * Test of getItemsFromCategory method, of class ApiResource.

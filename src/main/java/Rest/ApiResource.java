@@ -122,10 +122,11 @@ public class ApiResource{
             em.getTransaction().begin();
             em.persist(item);
             em.getTransaction().commit();
-        } finally{
+      
+         } finally{
             em.close();
         }
-       return item.toString();
+       return ("Item: " + content + " has been added");
     }
     
     @Path("/users/addUser")
