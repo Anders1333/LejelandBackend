@@ -8,7 +8,7 @@ package Rest;
 import Entities.Item;
 import Entities.User;
 import Errorhandling.Gatekeeper;
-import Exceptions.ValidationErrorException;
+import Errorhandling.ValidationErrorException;
 import Facades.ItemFacade;
 import Facades.UserFacade;
 import com.google.gson.Gson;
@@ -28,6 +28,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
 import java.lang.System;
+import java.lang.reflect.Array;
+import javax.persistence.PersistenceException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PathParam;
 
@@ -37,15 +39,14 @@ import javax.ws.rs.PathParam;
  * @author AndersHC
  */
 @Path("api")
-public class ApiResource{
+public class ApiResource {
 
     ItemFacade IF = new ItemFacade();
     UserFacade UF = new UserFacade();
     Gson gson = new Gson();
     Gatekeeper GK = new Gatekeeper();
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("lejelandPU");
-    EntityManager em = emf.createEntityManager(); 
-            
+    EntityManager em = emf.createEntityManager();
 
     @Context
     private UriInfo context;
@@ -107,49 +108,50 @@ public class ApiResource{
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getItemsFromCategory(@PathParam("categoryName") String category) {
-        return gson.toJson(IF.getItemsFromCategory(category));
+        String ResultArray = gson.toJson(IF.getItemsFromCategory(category));
+
+        if (ResultArray == null) {
+            throw new PersistenceException("This is not the catagory you are lookingfor");
+        } else {
+            return ResultArray;
+
+        }
+
     }
 
     @Path("/items/addItem")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public String addItemToDatabase(String content) throws ValidationErrorException{
+    public String addItemToDatabase(String content) throws ValidationErrorException {
         Item item = IF.getItemFromJson(content);
-        if(GK.checkItemData(item)==false){
+        if (GK.checkItemData(item) == false) {
             throw new ValidationErrorException("Code: 400  Message: Invalid input ");
         }
-         try{
+        try {
             em.getTransaction().begin();
             em.persist(item);
             em.getTransaction().commit();
-        } finally{
+        } finally {
             em.close();
         }
-       return item.toString();
+        return item.toString();
     }
-    
+
     @Path("/users/addUser")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public String addUserToDatabase(String content) throws ValidationErrorException {
         User user = UF.getUserFromJson(content);
-        if(GK.checkUserData(user)==false){
-          throw new ValidationErrorException("Code: 404   Message: Invalid input.");  
+        if (GK.checkUserData(user) == false) {
+            throw new ValidationErrorException("Code: 404   Message: Invalid input.");
         }
-         try{
+        try {
             em.getTransaction().begin();
             em.persist(user);
             em.getTransaction().commit();
-        } finally{
+        } finally {
             em.close();
         }
-       return user.toString();
+        return user.toString();
     }
 }
-  
-
-    
-    
-    
-    
-

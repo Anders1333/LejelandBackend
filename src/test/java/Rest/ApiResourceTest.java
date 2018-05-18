@@ -15,6 +15,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.lang.NullPointerException;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,6 +88,19 @@ public class ApiResourceTest {
         String result = instance.getUserFromId(id);
         assertNotNull(result);
     }
+    
+      /**
+     * Test of getUserFromId method, of class ApiResource.
+     */
+    @Test(expected = NoResultException.class)
+    public void testGetUserFromId_worng_id() {
+        System.out.println("getUserFromId");
+        Integer id = 200;
+        ApiResource instance = new ApiResource();
+       
+        String result = instance.getUserFromId(id);
+        
+    }
 
     /**
      * Test of getAllItems method, of class ApiResource.
@@ -100,7 +114,7 @@ public class ApiResourceTest {
         assertNotSame(result, null);
 
     }
-
+    
     /**
      * Test of getItemFromId method, of class ApiResource.
      */
@@ -133,22 +147,12 @@ public class ApiResourceTest {
         System.out.println("getItemsForUser");
         int id = 4;
         ItemFacade it = new ItemFacade();
-        List<String> itemsAsStrings = it.getItemsFromUserId(id);
-        List<Item> itemsInList = new ArrayList<Item>();
-        
-        for (int i = 0; i < itemsAsStrings.size(); i++) {
-           itemsInList.add(gson.fromJson(itemsAsStrings.get(i),Item.class));
-          }
-        
-        // FORTSÆT HER YO
-       
-     
-       
-        
-        
-        
-        
+        List<String> itemsAsStrings =  it.getItemsFromUserId(id);
+        assertNotNull(itemsAsStrings);
+          
     }
+    
+ 
 
     /**
      * Test of getItemsFromCategory method, of class ApiResource.
@@ -187,6 +191,22 @@ public class ApiResourceTest {
 
         String result = instance.addUserToDatabase(content);
 
+    }
+    @Test
+    public void testAddItemToDatabase_and_see() throws Exception {
+        Gson gson = new Gson();
+        System.out.println("addItemToDatabase-----------------------------------------------");
+        Item testItem = new Item(3, "TestItem", "Misc", "used for test", "2 Dank memes a day", "Lunden", "Available");
+        String content = gson.toJson(testItem);
+        String category = "Misc";
+        ApiResource instance = new ApiResource();
+        String result = instance.addItemToDatabase(content);
+        String result2 = instance.getItemsFromCategory(category);
+       
+        assertEquals(result2,1232321313);
+        
+        
+        
     }
 
 }

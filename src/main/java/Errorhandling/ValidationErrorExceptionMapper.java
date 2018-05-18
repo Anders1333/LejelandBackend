@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Exceptions;
+package Errorhandling;
 
+import Errorhandling.ValidationErrorException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javax.servlet.ServletContext;

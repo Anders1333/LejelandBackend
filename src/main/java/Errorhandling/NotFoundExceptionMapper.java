@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Exceptions;
+package Errorhandling;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -22,12 +22,13 @@ public class NotFoundExceptionMapper implements ExceptionMapper<NotFoundExceptio
  @Context
     ServletContext context;
     
+    
     static Gson gson = new GsonBuilder().setPrettyPrinting().create();
     @Override
     public Response toResponse(NotFoundException e) {
         boolean isDebug = context.getInitParameter("debug").equals("true");
 
-        Exceptions.ErrorMessage err = new Exceptions.ErrorMessage(e, 404, isDebug);
+        ErrorMessage err = new ErrorMessage(e, 404, isDebug);
         err.setDescription("Tried to call...");
         err.setMessage("The requested service does not exist");
 

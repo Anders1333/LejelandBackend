@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Exceptions;
+package Errorhandling;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,7 +28,7 @@ public class GenericExceptionMappe implements ExceptionMapper<Throwable> {
     public Response toResponse(Throwable ex) {
         boolean isDebug = context.getInitParameter("debug").equals("true");
 
-        Exceptions.ErrorMessage err = new Exceptions.ErrorMessage(ex, 500, isDebug);
+        ErrorMessage err = new ErrorMessage(ex, 500, isDebug);
         err.setDescription("Tried to call...");
         err.setMessage("Internal Server Problem. We are sorry for the inconvenience");
 

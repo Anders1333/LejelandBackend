@@ -83,9 +83,20 @@ public class Item implements Serializable {
     public Item(Integer itemId) {
         this.itemId = itemId;
     }
+ 
 
     public Item(Integer itemId, int userId, String title, String category, String description, String payment, String location, String status) {
         this.itemId = itemId;
+        this.userId = userId;
+        this.title = title;
+        this.category = category;
+        this.description = description;
+        this.payment = payment;
+        this.location = location;
+        this.status = status;
+    }
+    public Item( int userId, String title, String category, String description, String payment, String location, String status) {
+        
         this.userId = userId;
         this.title = title;
         this.category = category;
